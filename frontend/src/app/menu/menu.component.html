@@ -1,0 +1,38 @@
+<div class="navbar-fixed">
+  <nav>
+    <div class="navbar-wrapper">
+      <a materialize="sideNav" [materializeActions]="navOptions" data-activates="mobile" class="pointer button-collapse"><i class="material-icons">menu</i></a>
+      <a routerLink="/" class="brand-logo">
+        <img src="assets/logo_en.png" alt="Képfeldolgozási Kutatólaboratórium" class="responsive-img" />
+      </a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <ng-container *ngFor="let menuItem of menuItems">
+          <li
+            routerLinkActive="active"
+            *ngIf="isVisible(menuItem.needAuth) && isAdmin(menuItem.adminOnly)">
+            <a
+              [ngClass]="{'waves-effect waves-light btn': menuItem.isButton}"
+              routerLink="{{menuItem.route}}">
+              <i class="material-icons left" *ngIf="menuItem.icon">{{menuItem.icon}}</i>
+              {{menuItem.name}}
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
+</div>
+<ul class="side-nav" id="mobile">
+  <ng-container *ngFor="let menuItem of menuItems">
+    <li
+      routerLinkActive="active"
+      *ngIf="isVisible(menuItem.needAuth) && isAdmin(menuItem.adminOnly)">
+      <a
+        [ngClass]="{'waves-effect waves-light btn': menuItem.isButton}"
+        routerLink="{{menuItem.route}}">
+        <i class="material-icons left" *ngIf="menuItem.icon">{{menuItem.icon}}</i>
+        {{menuItem.name}}
+      </a>
+    </li>
+  </ng-container>
+</ul>

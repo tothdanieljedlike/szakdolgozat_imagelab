@@ -1,0 +1,38 @@
+<form class="col s12 m6 offset-m3 center" (submit)="login($event)" #form>
+  <h4>Login</h4>
+  <div class="row">
+    <div class="input-field col s12">
+      <input
+        name="email"
+        id="login-email"
+        type="email"
+        class="validate"
+        appAutofocus="{{!email}}"
+        [(ngModel)]="email"
+        required>
+      <label for="login-email">Email</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input
+        name="password"
+        id="login-password"
+        type="password"
+        class="validate"
+        appAutofocus="{{!!email}}"
+        [(ngModel)]="password"
+        required>
+      <label for="login-password">Password</label>
+    </div>
+  </div>
+  <button type="submit" class="waves-effect waves-light btn" [disabled]="!form.checkValidity()">
+    <i class="material-icons left">account_box</i>Login
+  </button>
+  <p class="center-align">
+    Do not have account? <a routerLink="/register">Register now!</a>
+  </p>
+  <p class="center-align" *ngIf="isEmailValid()">
+    Forgot your password? <a class="pointer" (click)="sendReminder()">Send reminder</a>
+  </p>
+</form>

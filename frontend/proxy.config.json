@@ -1,0 +1,17 @@
+{
+  "/api/*":{
+    "target":"https://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/exports/*":{
+    "target":"https://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/fonts/*":{
+    "target":"https://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  }
+}

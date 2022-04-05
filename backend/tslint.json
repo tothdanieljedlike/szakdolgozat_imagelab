@@ -1,0 +1,16 @@
+{
+  "extends": "tslint:recommended",
+  "rules": {
+    "no-unused-variable": true,
+    "max-line-length": {"options": [120]},
+    "new-parens": true,
+    "quotemark": [true, "single"],
+    "member-access": ["check-parameter-property"],
+    "member-ordering": false,
+    "object-literal-sort-keys": false,
+    "arrow-parens": false,
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conditional-assignment": true
+  }
+}

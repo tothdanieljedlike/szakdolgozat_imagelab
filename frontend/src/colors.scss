@@ -1,0 +1,66 @@
+@import '../node_modules/materialize-css/sass/components/color';
+
+$primary-color: color("blue-grey", "darken-2") !default;
+$primary-color-light: false !default;
+$primary-color-dark: false !default;
+@if not $primary-color-light {
+  $primary-color-light: lighten($primary-color, 15%);
+}
+@if not $primary-color-dark {
+  $primary-color-dark: darken($primary-color, 15%);
+}
+$secondary-color: color("deep-orange", "lighten-2") !default;
+$secondary-color-light: false !default;
+$secondary-color-dark: false !default;
+@if not $secondary-color-light {
+  $secondary-color-light: lighten($secondary-color, 15%);
+}
+@if not $secondary-color-dark {
+  $secondary-color-dark: darken($secondary-color, 15%);
+}
+$success-color: color("green", "base") !default;
+$error-color: color("red", "darken-1") !default;
+
+$link-color: color("light-blue", "darken-1") !default;
+
+$card-link-color: $secondary-color !default;
+
+.primary {
+  background-color: $primary-color !important;
+}
+
+.primary-light {
+  background-color: $primary-color-light !important;
+}
+
+.primary-dark {
+  background-color: $primary-color-dark !important;
+}
+
+.secondary {
+  background-color: $secondary-color !important;
+}
+
+.secondary-light {
+  background-color: $secondary-color-light !important;
+}
+
+.secondary-dark {
+  background-color: $secondary-color-dark !important;
+}
+
+.primary-text {
+  color: $primary-color !important;
+}
+
+.secondary-text {
+  color: $secondary-color !important;
+}
+
+.error {
+  background-color: $error-color !important;
+}
+
+.error-text {
+  color: $error-color !important;
+}

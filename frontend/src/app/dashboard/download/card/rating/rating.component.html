@@ -1,0 +1,16 @@
+<app-star
+  *ngFor="let one of [1, 2, 3, 4, 5]"
+  [rate]="stars"
+  [current]="one"
+  [hovered]="one <= currentHovered"
+  [enabled]="enabled"
+  [rated]="rated"
+  (mouseenter)="currentHovered = one"
+  (mouseleave)="currentHovered = -1"
+  (click)="onRate(one)"
+  class="tooltipped star"
+  [attr.data-tooltip]="stars.toFixed(1)">
+</app-star>
+<div class="input-field inline">
+  ({{this.count}})
+</div>

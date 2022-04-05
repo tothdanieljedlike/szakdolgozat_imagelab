@@ -1,0 +1,17 @@
+<agm-map
+  [fullscreenControl]="true"
+  [streetViewControl]="false"
+  [zoom]="2">
+  <agm-marker
+    *ngFor="let map of maps"
+    [latitude]="map.lat"
+    [longitude]="map.lng">
+    <agm-info-window>
+      <h5>{{map.name}}</h5>
+      <a [routerLink]="['/download', map.card.id]">Read More</a>
+      <br>
+      <br>
+      <img src="{{map.imageSrc}}" height="300">
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

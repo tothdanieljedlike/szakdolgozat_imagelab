@@ -1,0 +1,60 @@
+<div
+  *ngIf="!loaded"
+  class="center padding-to-middle">
+  <app-loader></app-loader>
+  <h4>Loading...</h4>
+</div>
+
+<div
+  class="fixed-action-btn scale-transition search-button"
+  [class.scale-out]="searchVisible && users.length">
+  <a class="btn-floating btn-large waves-effect waves-light"
+     (click)="showSearch()">
+    <i class="material-icons">search</i>
+  </a>
+</div>
+
+<div class="col s12" *ngIf="loaded && searchVisible">
+  <div class="input-field col s12 m4" *ngIf="loaded && users.length">
+    <input id="search" name="search" type="text" class="validate" [(ngModel)]="term">
+    <label for="search">Search</label>
+  </div>
+</div>
+
+<div class="col s12 m6 l5 xl4" *ngFor="let user of (users | filter: term) | paginate: { itemsPerPage: 9, currentPage: currentPage }">
+  <div class="card" [ngClass]="{'blue-grey darken-2': isAdmin(user)}">
+      <div class="card-content" [class.white-text]="isAdmin(user)">
+        <span class="card-title">
+          {{ user.firstName }} {{ user.lastName }}
+          <i
+            class="material-icons tooltipped"
+            data-tooltip="Admin"
+            data-position="right"
+            *ngIf="isAdmin(user)">stars</i>
+        </span>
+        <p><i class="material-icons">email</i> {{ user.email }}</p>
+        <p *ngIf="user.organization"><i class="material-icons">work</i> {{ user.organization.name }}</p>
+      </div>
+      <div class="card-action">
+        <ng-container *ngIf="user.id !== myID">
+          <a class="pointer error-text" (click)="deleteRequest(user)">Delete</a>
+          <a class="pointer" (click)="changeRole(user)">Switch role</a>
+        </ng-container>
+        <ng-container *ngIf="user.id === myID">
+          <a class="pointer" routerLink="/profile">My Profile</a>
+        </ng-container>
+      </div>
+  </div>
+</div>
+
+<app-confirm (confirm)="handleConfirm($event)" #confirm></app-confirm>
+
+<pagination-controls
+  (pageChange)="currentPage = $event"
+  *ngIf="users.length"
+  class="col s12"
+  previousLabel=""
+  nextLabel="">
+</pagination-controls>
+
+<app-empty *ngIf="!users.length && loaded"></app-empty>

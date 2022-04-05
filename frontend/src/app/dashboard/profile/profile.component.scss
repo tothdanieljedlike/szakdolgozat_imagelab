@@ -1,0 +1,36 @@
+@import '../../../colors';
+
+$min-height: 310px;
+
+.no-padding {
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.no-border {
+  border: 0;
+}
+
+.extra-padding {
+  padding-top: 79px;
+}
+
+.account-image {
+  padding-top: $min-height/5;
+  background: url("/assets/profile_bg.png") no-repeat center center;
+  background-size: cover;
+  height: $min-height;
+}
+
+.profile-details {
+  min-height: $min-height;
+  background-color: $primary-color;
+}
+
+button.col {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}

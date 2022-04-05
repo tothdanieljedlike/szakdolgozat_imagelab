@@ -1,0 +1,17 @@
+node_modules
+dist
+test
+
+src/public
+src/**/*.js
+src/**/*.map
+src/**/*.spec.js
+
+.env
+.idea/*
+!.idea/runConfigurations/*
+server.key
+server.crt
+
+.DS_Store
+**/.DS_Store

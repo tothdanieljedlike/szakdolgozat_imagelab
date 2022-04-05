@@ -1,0 +1,12 @@
+<i
+  class="material-icons"
+  [class.pointer]="enabled"
+  [class.secondary-text]="rated"
+  [class.yellow-text]="hovered && enabled">
+  {{
+  hovered && enabled ?
+  'star' : (rating >= 1 ?
+      'star' : ((rating < 1 && halfValue >= 0.5 && halfValue < 1) ? 'star_half' : 'star_border')
+    )
+  }}
+</i>

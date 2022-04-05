@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-content" [class.editing]="editing">
+    <span class="card-title" *ngIf="!editing">
+      {{org.name}}
+    </span>
+    <div class="row" *ngIf="editing">
+      <div class="input-field col s12">
+        <input name="org-name" id="org-name" type="text" class="validate" [(ngModel)]="tmpOrg.name" required>
+        <label for="org-name">Name</label>
+      </div>
+    </div>
+  </div>
+  <div class="card-action">
+    <ng-container *ngIf="!editing">
+      <a class="pointer" (click)="modifyRequest.emit({target: org, event: 'delete'})">Delete</a>
+      <a class="pointer" (click)="startEdit()">Edit</a>
+    </ng-container>
+    <ng-container *ngIf="editing">
+      <a class="pointer" (click)="stopEdit()">Save</a>
+      <a class="pointer" (click)="editing = false">Cancel</a>
+    </ng-container>
+  </div>
+</div>

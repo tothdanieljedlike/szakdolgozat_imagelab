@@ -1,0 +1,80 @@
+<form class="row" (submit)="stopEdit($event)" *ngIf="me" #form>
+  <div class="account-image col s12 m5 center white-text z-depth-2">
+    <i class="material-icons large">account_circle</i>
+    <h3 *ngIf="!editing">{{ me.firstName }} {{ me.lastName }}</h3>
+    <div class="row" *ngIf="editing">
+      <div class="input-field col s6">
+        <label for="first-name">First name</label>
+        <input
+          id="first-name"
+          name="name"
+          type="text"
+          class="validate"
+          minlength="3"
+          [(ngModel)]="tmpMe.firstName" required>
+      </div>
+      <div class="input-field col s6">
+        <label for="last-name">Last name</label>
+        <input
+          id="last-name"
+          name="name"
+          type="text"
+          class="validate"
+          minlength="3"
+          [(ngModel)]="tmpMe.lastName" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12 m6 profile-details z-depth-2 white-text">
+      <table class="bordered">
+        <tr>
+          <td>ID</td>
+          <td>{{ me.id }}</td>
+        </tr>
+        <tr>
+          <td>E-mail</td>
+          <td>{{ me.email }}</td>
+        </tr>
+        <tr *ngIf="me.organization && !editing">
+          <td>Organization</td>
+          <td>{{ me.organization.name }}</td>
+        </tr>
+        <tr class="no-border" *ngIf="editing">
+          <td>Organization</td>
+          <td class="no-padding">
+            <select (change)="tmpMe.organization = organizations[$event.target.value]" name="my-org" materialize="material_select">
+              <option
+                *ngFor="let org of organizations"
+                [value]="organizations.indexOf(org)"
+                [attr.selected]="org.id === me.organization.id ? 'selected' : 'false'">{{org.name}}</option>
+            </select>
+          </td>
+        </tr>
+      </table>
+      <div class="input-field no-margin" *ngIf="editing">
+        <input
+          #password
+          id="password"
+          name="password"
+          type="password"
+          class="validate"
+          [class.invalid]="tmpMe.password.length && !isPasswordOK()"
+          [(ngModel)]="tmpMe.password"
+          (keyup)="checkPassword()">
+        <label for="password" [attr.data-error]="getPasswordError()">Change password</label>
+    </div>
+    <div class="row actions extra-padding" *ngIf="!editing">
+      <button (click)="startEdit()" class="col s10 offset-s1 m5 offset-m1 btn primary-light">Edit</button>
+      <button (click)="deleteRequest()" class="col s10 offset-s1 m4 offset-m1 btn error">Delete</button>
+    </div>
+    <div class="row actions" *ngIf="editing">
+      <button
+        type="submit"
+        class="col s10 offset-s1 m5 offset-m1 btn primary-light"
+        [disabled]="tmpMe.password.length && !checkPasswordValidity()">Save</button>
+      <button (click)="editing = false" class="col s10 offset-s1 m4 offset-m1 btn">Cancel</button>
+    </div>
+  </div>
+</form>
+<app-confirm (confirm)="handleConfirm($event)" #confirm></app-confirm>

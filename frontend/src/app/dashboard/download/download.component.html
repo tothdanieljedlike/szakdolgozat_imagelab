@@ -1,0 +1,73 @@
+<div
+  *ngIf="!loaded"
+  class="center padding-to-middle">
+  <app-loader></app-loader>
+  <h4>Loading...</h4>
+</div>
+
+<div
+  class="fixed-action-btn scale-transition search-button"
+  [class.scale-out]="searchVisible && cards.length">
+  <a class="btn btn-floating btn-large waves-effect waves-light secondary"
+     (click)="showSearch()">
+    <i class="material-icons">search</i>
+  </a>
+</div>
+
+<div class="col s12" *ngIf="loaded && searchVisible && cards.length">
+  <div class="input-field col s12 m4" *ngIf="loaded">
+    <input id="search" name="search" type="text" class="validate" [(ngModel)]="term">
+    <label for="search">Search</label>
+  </div>
+</div>
+
+<app-card
+  *ngFor="let card of (cards | filter: term) | paginate: { itemsPerPage: 9, currentPage: currentPage }"
+  [card]="card"
+  [editable]="canModify(card)"
+  (modelRequest)="cardChanged.emit($event)"
+  (delete)="handleDeleteRequest($event)"
+  class="col s12 m6 xl4">
+</app-card>
+
+<pagination-controls
+  (pageChange)="currentPage = $event"
+  *ngIf="cards.length"
+  class="col s12"
+  previousLabel=""
+  nextLabel="">
+</pagination-controls>
+
+<app-empty *ngIf="!cards.length && loaded"></app-empty>
+<div
+  class="fixed-action-btn scale-transition download-button"
+  [class.scale-out]="isDownloadListEmpty">
+  <a class="btn-floating btn-large waves-effect waves-light primary-dark tooltipped"
+     data-position="left"
+     data-delay="50"
+     data-tooltip="Download"
+     (click)="downloadAll()">
+    <i class="material-icons">file_download</i>
+  </a>
+  <ul>
+    <li>
+      <a class="btn-floating tooltipped"
+         data-position="left"
+         data-delay="50"
+         data-tooltip="Show list"
+         (click)="showDownloadList()">
+        <i class="material-icons">format_list_bulleted</i>
+      </a>
+    </li>
+    <li>
+      <a class="btn-floating tooltipped"
+         data-position="left"
+         data-delay="50"
+         data-tooltip="Clear list"
+         (click)="clearDownloadList()">
+        <i class="material-icons">cancel</i>
+      </a>
+    </li>
+  </ul>
+</div>
+<app-modal [cardRequest]="cardChanged" (downloadRequest)="downloadOne($event)"></app-modal>

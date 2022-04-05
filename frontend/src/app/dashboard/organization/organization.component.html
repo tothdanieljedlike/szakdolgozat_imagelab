@@ -1,0 +1,40 @@
+<div
+  *ngIf="!loaded"
+  class="center padding-to-middle">
+  <app-loader></app-loader>
+  <h4>Loading...</h4>
+</div>
+
+<div
+  class="fixed-action-btn scale-transition search-button"
+  [class.scale-out]="searchVisible">
+  <a class="btn-floating btn-large waves-effect waves-light"
+     (click)="showSearch()">
+    <i class="material-icons">search</i>
+  </a>
+</div>
+
+<div class="col s12" *ngIf="loaded && searchVisible">
+  <div class="input-field col s12 m4" *ngIf="loaded">
+    <input id="search" name="search" type="text" class="validate" [(ngModel)]="term">
+    <label for="search">Search</label>
+  </div>
+</div>
+
+<app-organization-entity
+  (modifyRequest)="handleRequest($event)"
+  class="col s12 m6 l5 xl4"
+  *ngFor="let org of (orgs | filter: term) | paginate: { itemsPerPage: 9, currentPage: currentPage }"
+  [org]="org"></app-organization-entity>
+
+<app-confirm (confirm)="handleConfirm($event)" #confirm></app-confirm>
+
+<pagination-controls
+  (pageChange)="currentPage = $event"
+  *ngIf="orgs.length"
+  class="col s12"
+  previousLabel=""
+  nextLabel="">
+</pagination-controls>
+
+<app-empty *ngIf="!orgs.length && loaded"></app-empty>

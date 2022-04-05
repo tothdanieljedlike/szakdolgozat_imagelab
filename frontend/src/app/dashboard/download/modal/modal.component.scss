@@ -1,0 +1,55 @@
+@import '../../../../colors';
+
+.modal-content .modal-title .col {
+  margin: 0;
+}
+
+agm-map {
+  height: 100%;
+  /* height: calc(100% - 6px); */
+  position: absolute;
+  padding: 0 !important;
+}
+
+.reader {
+  height: 20%;
+  overflow-y: auto;
+  margin-bottom: 5px;
+}
+
+.comment-box {}
+
+.comment-box .profile-icon{
+  font-size: 40px;
+}
+
+
+.modal-content {}
+
+.modal-content .map-container {
+  position: relative;
+  height: 75%;
+  height: calc(80% - 85px);
+  margin: 0;
+}
+
+.modal-content .no-description {
+  height: 90%;
+  height: calc(100% - 85px);
+}
+
+.modal.modal-fixed-footer .modal-content {
+  padding-bottom: 0;
+}
+
+.modal.modal-fixed-footer {
+  height: 80%;
+  max-height: 80% !important;
+}
+
+#comment-notify {
+  position: absolute;
+  right: 70px;
+  bottom: 20px;
+  background-color: $secondary-color;
+}

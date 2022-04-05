@@ -1,0 +1,69 @@
+<div id="card-{{card.id}}" class="card">
+  <div class="card-image pointer">
+    <div class="slider" (click)="modelRequest.emit(card)" materialize="slider" [materializeActions]="sliderActions">
+      <ul class="slides">
+        <li *ngFor="let map of card.maps">
+          <img src="{{map.imageSrc}}">
+          <div class="caption left-align">
+            <h3>{{map.name}}</h3>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <a
+      materialize="tooltip"
+      class="btn-floating btn-large halfway-fab waves-effect waves-light btn tooltipped"
+      data-position="bottom"
+      data-delay="50"
+      [attr.data-tooltip]="!isInDownloadList() ? 'Add to download list': 'Remove from download list'"
+      (click)="addToDownloadList()">
+        <i class="material-icons">{{!isInDownloadList() ? 'add': 'delete'}}</i>
+    </a>
+  </div>
+  <div class="card-content" [class.editing]="editing">
+    <ng-container *ngIf="!editing">
+      <span class="card-title truncate">{{card.name}}</span>
+      <p>{{card.author.firstName}} {{card.author.lastName}}</p>
+      <p>{{card.author.organization.name}}</p>
+      <app-rating [rating]="card.ratings" (rate)="addRate($event)"></app-rating>
+    </ng-container>
+    <ng-container *ngIf="editing">
+      <div class="input-field">
+        <label for="card-name">Name</label>
+        <input
+          id="card-name"
+          name="name"
+          type="text"
+          class="validate"
+          minlength="3"
+          [(ngModel)]="tmpCard.name" required>
+      </div>
+      <div class="input-field">
+        <textarea
+          id="upload-description"
+          name="description"
+          class="materialize-textarea"
+          maxlength="2048"
+          data-length="2048"
+          [(ngModel)]="tmpCard.description"></textarea>
+        <label for="upload-description">Description</label>
+      </div>
+    </ng-container>
+  </div>
+  <div class="card-action">
+    <ng-container *ngIf="!editing">
+      <a class="pointer" (click)="modelRequest.emit(card)">Read More</a>
+      <a (click)="startEdit()" class="pointer" *ngIf="editable">Edit</a>
+      <a (click)="deleteRequest(card)" class="pointer error-text" *ngIf="editable">Delete</a>
+    </ng-container>
+    <ng-container *ngIf="editing">
+      <a (click)="stopEdit()" class="pointer">Save</a>
+      <a (click)="editing = false" class="pointer">Cancel</a>
+    </ng-container>
+  </div>
+</div>
+<app-confirm
+  [confirm]="delete"
+  *ngIf="editable"
+  #confirm>
+</app-confirm>

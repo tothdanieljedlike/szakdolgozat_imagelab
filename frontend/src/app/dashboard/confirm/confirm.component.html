@@ -1,0 +1,10 @@
+<div class="modal" materialize="modal" [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>{{title}}</h4>
+    <p>{{description}}</p>
+  </div>
+  <div class="modal-footer">
+    <a class="pointer modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+    <a (click)="accept()" class="pointer modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+  </div>
+</div>

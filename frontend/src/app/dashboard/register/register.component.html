@@ -1,0 +1,84 @@
+<div class="loader-container" *ngIf="inProgress">
+  <app-loader></app-loader>
+</div>
+<form class="col s12 m6 offset-m3 center" (submit)="register($event)" #form>
+  <h4>Register</h4>
+  <div class="row">
+    <div class="input-field col s6">
+      <input
+        id="register-first_name"
+        name="first-name"
+        type="text"
+        class="validate"
+        minlength="3"
+        [(ngModel)]="newUser.firstName"
+        appAutofocus
+        required>
+      <label for="register-first_name" data-error="wrong">First Name</label>
+    </div>
+    <div class="input-field col s6">
+      <input
+        id="register-last_name"
+        name="last-name"
+        type="text"
+        minlength="3"
+        class="validate"
+        [(ngModel)]="newUser.lastName"
+        required>
+      <label for="register-last_name" data-error="wrong">Last Name</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input
+        id="register-email"
+        name="email"
+        type="email"
+        class="validate"
+        [(ngModel)]="newUser.email"
+        required>
+      <label for="register-email" data-error="wrong">Email</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input
+        #password
+        id="register-password"
+        name="password"
+        type="password"
+        class="validate"
+        [class.invalid]="newUser.password.length && !isPasswordOK()"
+        [(ngModel)]="newUser.password"
+        (keyup)="checkPassword()"
+        required>
+      <label for="register-password" [attr.data-error]="getPasswordError()">Password</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input
+        type="text"
+        class="validate"
+        id="register-organization"
+        name="organization"
+        materialize="autocomplete"
+        minlength="3"
+        [(ngModel)]="newUser.organization.name"
+        [materializeParams]="[autocompleteInit]"
+        autocomplete="off"
+        data-error="wrong"
+        required>
+      <label for="register-organization">Organization</label>
+    </div>
+  </div>
+  <div class="row">
+    <re-captcha
+      class="col s12 m6 offset-m2"
+      (resolved)="reCaptcha = $event"
+      #captcha></re-captcha>
+  </div>
+  <button type="submit" class="waves-effect waves-light btn" [disabled]="!(form.checkValidity() && reCaptcha)">
+    <i class="material-icons left">person_add</i>Register
+  </button>
+</form>

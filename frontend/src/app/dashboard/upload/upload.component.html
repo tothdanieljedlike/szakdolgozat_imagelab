@@ -1,0 +1,51 @@
+<div class="loader-container" *ngIf="uploading">
+  <app-loader></app-loader>
+</div>
+<form class="col s12 m6 offset-m3 center" layout="row" layout-align="center" (submit)="upload($event)">
+  <h4>Upload</h4>
+  <div class="row">
+    <div class="input-field col s12">
+      <label for="upload-name">Name</label>
+      <input id="upload-name" name="name" type="text" class="validate" minlength="3" [(ngModel)]="file.name" appAutofocus>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <label for="upload-description">Description</label>
+      <textarea
+        id="upload-description"
+        name="description"
+        class="materialize-textarea"
+        maxlength="2048"
+        data-length="2048"
+        [(ngModel)]="file.description"></textarea>
+    </div>
+  </div>
+  <div class="file-field input-field">
+    <div class="btn">
+      <span>File</span>
+      <input
+        id="upload-file"
+        name="file"
+        type="file"
+        accept="application/zip"
+        (change)="file.files = $event.target.files"
+        required>
+    </div>
+    <div class="file-path-wrapper">
+      <input
+        class="file-path validate"
+        type="text"
+        placeholder="Upload a file" required>
+    </div>
+  </div>
+  <div class="row">
+    <re-captcha
+      class="col s12 m6 offset-m2 center"
+      (resolved)="reCaptcha = $event"
+      #captcha></re-captcha>
+  </div>
+  <button type="submit" class="waves-effect waves-light btn" [disabled]="!isValid() || uploading" #submit>
+    <i class="material-icons left">file_upload</i>upload
+  </button>
+</form>
